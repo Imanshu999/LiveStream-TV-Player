@@ -1,0 +1,6 @@
+{
+  "name": "Live TV",
+  "description": "Live-Only TV player with Netflix-style controls.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
