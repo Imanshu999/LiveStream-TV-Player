@@ -16,28 +16,10 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
       
-      - name: Create Build Environment
+      - name: Build APK
         run: |
-          # 1. प्रोजेक्ट ढांचा तैयार करना
-          mkdir -p gradle/wrapper
-          
-          # 2. अगर build.gradle नहीं है, तो एक बेसिक फाइल बनाना
-          if [ ! -f "build.gradle" ]; then
-            echo 'plugins { id("com.android.application") version "8.0.0" apply false }' > build.gradle
-          fi
-          
-          # 3. ऐप मॉड्यूल के लिए ढांचा और फाइल बनाना
-          mkdir -p app
-          if [ ! -f "app/build.gradle" ]; then
-            echo 'plugins { id("com.android.application") } android { compileSdk 34 }' > app/build.gradle
-          fi
-          
-          # 4. ग्रैडल रैपर जनरेट करना
-          gradle wrapper
-          chmod +x gradlew
-        
-      - name: Build with Gradle
-        run: ./gradlew :app:assembleDebug
+          # यह कमांड फाइल्स के बिना प्रोजेक्ट बनाने की कोशिश करेगी
+          gradle clean assembleDebug --no-daemon
         
       - name: Upload APK
         uses: actions/upload-artifact@v4
