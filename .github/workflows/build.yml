@@ -15,13 +15,14 @@ jobs:
         with:
           java-version: '17'
           distribution: 'temurin'
-
-      # बिना किसी पुरानी फाइल के, ये कमांड खुद का नया ग्रेड सिस्टम सेटअप करेगी
-      - name: Build with Gradle
+      
+      # डीबग मोड: यह कमांड बताएगी कि प्रोजेक्ट में फाइल्स क्यों नहीं मिल रही हैं
+      - name: Debug and Build
         run: |
+          ls -R
           gradle wrapper
           chmod +x gradlew
-          ./gradlew :app:assembleDebug
+          ./gradlew assembleDebug --stacktrace
         
       - name: Upload APK
         uses: actions/upload-artifact@v4
