@@ -16,9 +16,11 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
       
-      # अब हमें gradle इंस्टॉल करने की जरूरत नहीं है अगर फाइलें होंगी
+      # ये कमांड सिर्फ तब चलेगी जब gradlew फाइल GitHub पर होगी
       - name: Build with Gradle
-        run: chmod +x gradlew && ./gradlew :app:assembleDebug
+        run: |
+          chmod +x gradlew
+          ./gradlew assembleDebug
         
       - name: Upload APK
         uses: actions/upload-artifact@v4
