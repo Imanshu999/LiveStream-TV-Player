@@ -15,25 +15,10 @@ jobs:
         with:
           java-version: '17'
           distribution: 'temurin'
-
-      - name: Install Gradle
-        run: sudo apt-get update && sudo apt-get install -y gradle
-        
-      # यह स्टेप 'settings.gradle.kts' खुद बना देगा ताकि Gradle 'app' फोल्डर को ढूंढ सके
-      - name: Prepare Gradle Environment
-        run: |
-          echo 'include(":app")' > settings.gradle.kts
-        
-      - name: Create .env file
-        run: echo "GEMINI_API_KEY=${{ secrets.GEMINI_API_KEY }}" > .env
       
-      - name: Update App Name
-        run: |
-          sed -i 's/>LiveStream-TV-Player</>Takano Live</g' app/src/main/res/values/strings.xml
-        
-      # अब सीधे बिल्ड कमांड
+      # अब हमें gradle इंस्टॉल करने की जरूरत नहीं है अगर फाइलें होंगी
       - name: Build with Gradle
-        run: gradle :app:assembleDebug
+        run: chmod +x gradlew && ./gradlew :app:assembleDebug
         
       - name: Upload APK
         uses: actions/upload-artifact@v4
