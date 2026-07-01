@@ -15,16 +15,15 @@ jobs:
         with:
           java-version: '17'
           distribution: 'temurin'
-
-      # यह स्टेप कीस्टोर की एरर को बायपास करने के लिए सबसे महत्वपूर्ण है
+      
+      # सबसे ज़रूरी स्टेप: कीस्टोर चेकिंग को बंद करना और बिल्ड करना
       - name: Build APK
         run: |
-          # 1. ग्रेड रैपर बनाना (अगर नहीं है)
-          gradle wrapper
-          chmod +x gradlew
+          # 1. ग्रैडल रैपर की अनुमतियाँ सेट करें
+          chmod +x gradlew || true
           
-          # 2. बिल्ड कमांड: -x validateSigning कीस्टोर चेकिंग को बंद कर देगा
-          ./gradlew assembleDebug -x validateSigning
+          # 2. कीस्टोर फाइल के बिना बिल्ड करने के लिए 'validateSigning' को डिसेबल करें
+          ./gradlew assembleDebug -x validateSigning --stacktrace
         
       - name: Upload APK
         uses: actions/upload-artifact@v4
