@@ -16,7 +16,6 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
 
-      # बिना ग्रेड फाइल के बिल्ड करने के लिए ये सबसे सुरक्षित तरीका है
       - name: Install Gradle
         run: sudo apt-get update && sudo apt-get install -y gradle
         
@@ -27,9 +26,9 @@ jobs:
         run: |
           sed -i 's/>LiveStream-TV-Player</>Takano Live</g' app/src/main/res/values/strings.xml
         
-      # अब ./gradlew की जगह सीधे gradle कमांड का इस्तेमाल होगा
+      # यहाँ हमने 'app:assembleDebug' का उपयोग किया है ताकि वह 'app' फोल्डर के अंदर बिल्ड करे
       - name: Build with Gradle
-        run: gradle assembleDebug
+        run: gradle :app:assembleDebug
         
       - name: Upload APK
         uses: actions/upload-artifact@v4
